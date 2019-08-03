@@ -1,5 +1,5 @@
 ﻿# Sort Directory By Timestamp by Matthew Relph
-# v 1.0
+# v 1.01
 # Powershell Script Version
 #
 #
@@ -25,6 +25,7 @@
 # Begin Functions
 function PrintArgs($argsList)
 {
+
     Write-Host "We are looking for 3 parameters. `n Argument #1 = Source Directory `n Argument #2 = Destination Directory `n Argument #3 = Options Flags"
     Write-Host "   -c = Copy to new directory only (Leaves Originals) `n   -v = Move to new directory"
     Write-Host "   -n = No prompts (overrides other options) `n   -p = Prompt at conflicts"
@@ -131,6 +132,9 @@ function checkArgs($argsList,[REF]$promptFlag,[REF]$moveFlag,[REF]$sortBy, [REF]
         catch
         {
             Write-Host "ERROR: Reading source directory path " $argsList[0] 
+            $Error[0].Exception
+            Exit
+			
         }
         
         #Check Destination Directory
@@ -186,6 +190,8 @@ function checkArgs($argsList,[REF]$promptFlag,[REF]$moveFlag,[REF]$sortBy, [REF]
         catch
         {
             Write-Host "ERROR: Reading destination directory path " $argsList[1] 
+            $Error[0].Exception
+            Exit
         }
         Write-Host "Options: " $argsList[2]
         if (-not ($optionsFlag))
@@ -252,12 +258,16 @@ function mainTask($sourcePath, $destinationPath, $promptFlag, $moveFlag, $sortBy
                 catch
                 {
                     Write-Host "ERROR: Creating destination directory path " $extendedDestinationPath 
+                    $Error[0].Exception
+                    Exit
                 }
             }  
         }
         catch
         {
-            Write-Host "ERROR: Reading destination directory path " $extendedDestinationPath 
+            Write-Host "ERROR: Reading destination directory path " $extendedDestinationPath
+            $Error[0].Exception
+            Exit             
         }
 
 
@@ -274,6 +284,8 @@ function mainTask($sourcePath, $destinationPath, $promptFlag, $moveFlag, $sortBy
         catch
         {
              Write-Host "ERROR: Checking if destination file exists " $destination
+            $Error[0].Exception
+            Exit
         }
 
         # If prompts are on, we check with the user
@@ -308,6 +320,8 @@ function mainTask($sourcePath, $destinationPath, $promptFlag, $moveFlag, $sortBy
             catch
             {
                 Write-Host "ERROR: Checking if destination file exists " $destination 
+                $Error[0].Exception
+                Exit
             }
         }
 
@@ -319,6 +333,8 @@ function mainTask($sourcePath, $destinationPath, $promptFlag, $moveFlag, $sortBy
         catch
         {
             Write-Host "ERROR: Copying file to destination directory " $destination 
+            $Error[0].Exception
+            Exit
         }
 
 
@@ -340,6 +356,8 @@ function mainTask($sourcePath, $destinationPath, $promptFlag, $moveFlag, $sortBy
             catch
             {
                 Write-Host "ERROR: Removing Source File " $removeFilePath 
+                $Error[0].Exception
+                Exit
             }
         }
         Write-Host "Removals Complete"
