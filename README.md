@@ -11,7 +11,11 @@ As always, use at your own risk
 3rd Argument = Option Flags (-xxxx)
 
 Example use (In Powershell):
+
 scriptName Source Destination -xxxx
+
+eg
+
 &'C:\Users\MyUser\Documents\Projects\powershell scripts\directory sort\directoryTimeStampSort.ps1' 'C:\Users\MyUser\Documents\Projects\powershell scripts\directory sort\test\input' 'C:\Users\MyUser\Documents\Projects\powershell scripts\directory sort\test\output' -cnyo
 
 Possible future additions: Filter by extension
