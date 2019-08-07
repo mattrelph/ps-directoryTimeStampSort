@@ -235,12 +235,12 @@ function mainTask($sourcePath, $destinationPath, $promptFlag, $moveFlag, $sortBy
 
         if (($sortBy -eq "d") -or ($sortBy -eq "m"))
         {
-           #Get year string and append to path
+           #Get month string and append to path
            $extendedDestinationPath = $extendedDestinationPath + "\" + $fileDate.substring(5, 2) 
         }
         if ($sortBy -eq "d")
         {
-           #Get year string and append to path
+           #Get day string and append to path
            $extendedDestinationPath = $extendedDestinationPath + "\" + $fileDate.substring(8, 2) 
         }
         #Write-Host $extendedDestinationPath"\"$copyFile $copyFile.LastWriteTime
